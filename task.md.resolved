@@ -1,0 +1,31 @@
+# Smart HR Recruitment System - Task List
+
+- [ ] **Phase 1: Project Initialization & Setup**
+  - [ ] Initialize repository and define tech stack.
+  - [ ] Set up Frontend (Web Portal for HR and Candidates).
+  - [ ] Set up Backend (API Server & Business Logic).
+  - [ ] Design and set up the Database schema.
+
+- [ ] **Phase 2: Authentication & Dashboard**
+  - [ ] Implement secure HR Login system.
+  - [ ] Create HR Dashboard with Job & Candidate overviews.
+  - [ ] Implement Job Details Management.
+
+- [ ] **Phase 3: Candidate Tracking & Interview Scheduling**
+  - [ ] Build Resume Shortlisting and Duplicate Profile Detection.
+  - [ ] Implement Candidate Tracking Workflow.
+  - [ ] Build Automated Interview Scheduling & Email Integration.
+
+- [ ] **Phase 4: Interview Assessment Engine**
+  - [ ] Develop Round 1 (Aptitude & Core Concepts) auto-evaluation.
+  - [ ] Develop Round 2 (Coding Assessment) auto-evaluation.
+  - [ ] Build manual evaluation entry for Round 3 (Technical HR) and Final Round.
+
+- [ ] **Phase 5: Offer & Onboarding Automation**
+  - [ ] Implement Offer Letter Generator and email trigger.
+  - [ ] Build Onboarding Documents Upload and Verification module.
+
+- [ ] **Phase 6: Final Review & Polish**
+  - [ ] Verify End-to-End workflow.
+  - [ ] Ensure visually stunning frontend design.
+  - [ ] Documentation for presentation.

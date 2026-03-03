@@ -1,0 +1,25 @@
+# Node
+node_modules/
+.next/
+out/
+build/
+.npm/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# System
+.DS_Store
+Thumbs.db
+
+# Project generated files
+*.png
+*.jpg
+*.jpeg
+*.sqlite3
+*.db

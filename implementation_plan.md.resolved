@@ -1,0 +1,51 @@
+# Smart HR Recruitment & Interview Automation System
+
+This document outlines the proposed technical implementation of the HR Recruitment system based on the provided hackathon prompt.
+
+## User Review Required
+> [!IMPORTANT]
+> Please review and confirm the desired technology stack so we can begin coding:
+> 1. **Frontend framework**: What do you prefer (e.g., Next.js, React+Vite, Angular)?
+> 2. **Backend language/framework**: What do you prefer (e.g., Node.js/Express, Python/FastAPI, Java/Spring)?
+> 3. **Database**: What do you prefer (e.g., PostgreSQL, MySQL, MongoDB)?
+> 4. **Styling**: Can we use Tailwind CSS for rapid prototyping and a premium look, or do you prefer Vanilla CSS?
+
+## Proposed Architecture
+The system follows a 3-Tier Architecture.
+
+### Database Layer
+- Set up either a relational schema (PostgreSQL/MySQL) or document-based schema (MongoDB) containing models for:
+  - `HR_Users`
+  - `Job_Postings`
+  - `Candidates`
+  - `Candidate_Tracking`
+  - `Interview_Schedules`
+  - `Assessment_Scores`
+  - `Offer_Details`
+  - `Onboarding_Documents`
+
+### Backend Layer
+Create micro-service style API routes for:
+- **Auth**: Email & Password validation, secure session management.
+- **Candidate Management**: Resume parsing/shortlisting logic, duplicate profile detection.
+- **Scheduling**: Schedule/Reschedule interviews and trigger emails (SMTP/API).
+- **Assessments**: Handle auto-evaluation for Aptitude (Round 1) and Coding (Round 2).
+- **Offer & Onboarding**: Generate structured offer letters and manage document uploads.
+
+### Frontend Layer
+Build two main interfaces with a modern, dynamic, and premium UI:
+- **HR Portal**: Login, centralized Dashboard, Job Management, and a Candidate Tracking Kanban board.
+- **Candidate Portal**: Interview Assessment interface and Onboarding Document Upload page.
+
+## Verification Plan
+
+### Automated Tests
+- Write unit tests for core backend logic: Score calculations, duplicate profile detection, and role-based access control.
+
+### Manual Verification
+- Walkthrough of the complete HR workflow:
+  1. Login as HR & create a `Job_Posting`.
+  2. Create a `Candidate` application.
+  3. Schedule an interview and verify email delivery.
+  4. Complete Round 1 and Round 2 assessments as a Candidate and verify auto-scoring.
+  5. Generate the auto offer letter and perform onboarding steps.
