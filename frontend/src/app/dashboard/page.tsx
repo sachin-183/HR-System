@@ -24,7 +24,7 @@ export default function DashboardOverview() {
 
     useEffect(() => {
         // Fetch stats
-        fetch('http://localhost:8000/api/stats')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/stats`)
             .then(res => res.json())
             .then(data => {
                 setStats(data);
@@ -32,7 +32,7 @@ export default function DashboardOverview() {
             .catch(err => console.error("Error fetching stats:", err));
 
         // Fetch recent activity
-        fetch('http://localhost:8000/api/activity')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/activity`)
             .then(res => res.json())
             .then(data => {
                 setActivities(data);

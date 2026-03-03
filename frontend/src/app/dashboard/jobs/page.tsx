@@ -16,7 +16,7 @@ export default function JobsPage() {
 
     const fetchJobs = () => {
         setLoading(true);
-        fetch('http://localhost:8000/api/jobs')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/jobs`)
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

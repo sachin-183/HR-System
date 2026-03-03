@@ -14,7 +14,7 @@ export default function OnboardingDashboard() {
     const handlePreviewClick = async (doc: any) => {
         setPreviewDoc({ ...doc, loading: true });
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/${doc.id}/file`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/documents/${doc.id}/file`);
             if (res.ok) {
                 const data = await res.json();
                 setPreviewDoc({ ...doc, file_data: data.file_data, loading: false });
@@ -72,7 +72,7 @@ export default function OnboardingDashboard() {
 
     const fetchData = async (id: string) => {
         try {
-            const res = await fetch('http://localhost:8000/api/candidates');
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`);
             if (res.ok) {
                 const cands = await res.json();
                 const me = cands.find((c: any) => c.id.toString() === id.toString());
@@ -103,7 +103,7 @@ export default function OnboardingDashboard() {
                 const base64Str = reader.result?.toString() || "";
 
                 try {
-                    const res = await fetch('http://localhost:8000/api/documents/upload', {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/documents/upload`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -130,7 +130,7 @@ export default function OnboardingDashboard() {
     const handleDelete = async (docId: number) => {
         if (!confirm("Are you sure you want to delete this document? You will need to re-upload it.")) return;
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/${docId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/documents/${docId}`, {
                 method: 'DELETE'
             });
             if (res.ok) {
@@ -148,7 +148,7 @@ export default function OnboardingDashboard() {
     const submitOnboarding = async () => {
         if (!confirm("Are you sure you want to submit? You won't be able to upload or edit documents after submission while HR is reviewing.")) return;
         try {
-            const res = await fetch(`http://localhost:8000/api/candidates/${candidateId}/submit_onboarding`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/candidates/${candidateId}/submit_onboarding`, {
                 method: 'POST'
             });
             if (res.ok) {

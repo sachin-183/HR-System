@@ -12,7 +12,7 @@ export default function HROnboardingDashboard() {
     const handlePreviewClick = async (doc: any) => {
         setPreviewDoc({ ...doc, loading: true });
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/${doc.id}/file`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/documents/${doc.id}/file`);
             if (res.ok) {
                 const data = await res.json();
                 setPreviewDoc({ ...doc, file_data: data.file_data, loading: false });
@@ -31,7 +31,7 @@ export default function HROnboardingDashboard() {
     const fetchCandidates = async () => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:8000/api/candidates");
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`);
             if (res.ok) {
                 const data = await res.json();
                 // We want candidates who are Accepted (in onboarding)
@@ -49,7 +49,7 @@ export default function HROnboardingDashboard() {
     const updateDocumentStatus = async (docId: number, status: string) => {
         const notes = prompt(`Enter optional reason for marking as ${status}:`) || "";
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/${docId}/status`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/documents/${docId}/status`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ hr_status: status, notes })
@@ -58,7 +58,7 @@ export default function HROnboardingDashboard() {
                 alert(`Document ${status} successfully!`);
                 await fetchCandidates();
                 if (selectedCandidate) {
-                    const freshRes = await fetch("http://localhost:8000/api/candidates");
+                    const freshRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`);
                     if (freshRes.ok) {
                         const rawData = await freshRes.json();
                         const updatedMe = rawData.find((c: any) => c.id === selectedCandidate.id);
@@ -74,13 +74,13 @@ export default function HROnboardingDashboard() {
     const handleCompleteOnboarding = async (candidateId: number) => {
         if (!confirm("Are you sure you want to approve this candidate's onboarding and send the completion email?")) return;
         try {
-            const res = await fetch(`http://localhost:8000/api/candidates/${candidateId}/complete_onboarding`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/candidates/${candidateId}/complete_onboarding`, {
                 method: "POST"
             });
             if (res.ok) {
                 alert("Candidate onboarding completed! Email has been dispatched.");
                 await fetchCandidates();
-                const freshRes = await fetch("http://localhost:8000/api/candidates");
+                const freshRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`);
                 if (freshRes.ok) {
                     const rawData = await freshRes.json();
                     const updatedMe = rawData.find((c: any) => c.id === candidateId);

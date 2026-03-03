@@ -35,13 +35,13 @@ export default function PipelinePage() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const jobsRes = await fetch('http://localhost:8000/api/jobs');
+            const jobsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/jobs`);
             const jobsData = await jobsRes.json();
             const jobMap: Record<number, string> = {};
             jobsData.forEach((j: Job) => { jobMap[j.id] = j.title; });
             setJobs(jobMap);
 
-            const candsRes = await fetch('http://localhost:8000/api/candidates');
+            const candsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`);
             const candsData = await candsRes.json();
             setCandidates(candsData);
         } catch (err) {
@@ -57,7 +57,7 @@ export default function PipelinePage() {
 
     const updateStage = async (id: number, newStage: string) => {
         try {
-            const res = await fetch(`http://localhost:8000/api/candidates/${id}/stage`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/candidates/${id}/stage`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ stage: newStage, notes: "Updated via Pipeline" })
@@ -74,7 +74,7 @@ export default function PipelinePage() {
     // AI Mock Shortlist to next Stage
     const handleAIShortlist = async (id: number) => {
         try {
-            const res = await fetch(`http://localhost:8000/api/candidates/${id}/stage`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}`}/api/candidates/${id}/stage`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ stage: "Round 1", notes: "Shortlisted automatically by AI based on Job Description & Resume matching." })
@@ -92,7 +92,7 @@ export default function PipelinePage() {
         const subject = "Technical Assessment Link";
         const body = `Dear ${cand.name},\n\nYou have been shortlisted for ${jobs[cand.job_id]}. Please take your technical assessment here: http://localhost:3000/portal/assessment`;
         try {
-            const res = await fetch('http://localhost:8000/api/email/send', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/email/send`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ to_email: cand.email, subject, body })
@@ -124,7 +124,7 @@ export default function PipelinePage() {
         const base64_reply = btoa(fakeReplyText);
 
         try {
-            const res = await fetch('http://localhost:8000/api/email/process_reply', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/email/process_reply`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ candidate_id: cand.id, base64_reply })

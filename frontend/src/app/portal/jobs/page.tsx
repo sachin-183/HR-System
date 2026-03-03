@@ -30,7 +30,7 @@ export default function PublicJobBoard() {
     const [applyStatus, setApplyStatus] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/jobs')
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/jobs`)
             .then(res => res.json())
             .then(data => {
                 // Filter active jobs only
@@ -50,7 +50,7 @@ export default function PublicJobBoard() {
         if (!applyingTo) return;
 
         try {
-            const res = await fetch('http://localhost:8000/api/candidates', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/candidates`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
